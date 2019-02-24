@@ -11,6 +11,6 @@ Notes:
 2. Currently only works in a Linux terminal  
 3. The file_with_timestamps must be formatted correctly - no error checking yet
 
-file_with_timestamps format:
-00:00:00-00:01:27
+file_with_timestamps format:  
+00:00:00-00:01:27  
 00:21:06-00:23:56
