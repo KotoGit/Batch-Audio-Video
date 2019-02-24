@@ -1,3 +1,4 @@
+
 import subprocess
 
 class timestamp:
@@ -5,12 +6,8 @@ class timestamp:
         self.begin = begin
         self.end = end
 
-class commands:
-    def __init__(self, name, argu):
-        self.name = name
-        self.arg = argu
-
-testing = [timestamp("00:00:00", "00:00:27")]
+testing = []
+testing.append(timestamp("00:00:00", "00:00:27"))
 
 start = input("Do you want the ouput to be audio (a) or video (v)? ")
 loop = 0
@@ -24,10 +21,9 @@ while loop == 0:
             start = time.begin
             fin = time.end
             arg = ["-i", filename, "-ss", start, "-to", fin, "-f", "mp3", "-ab", "320000", "-vn", outname]
-            temp = commands(program, arg)
-            cmdlist.append(temp)
+            cmdlist.append(arg)
         for idx, command in enumerate(cmdlist):
-            temp = subprocess.Popen([cmdlist[idx].name].extend(cmdlist[idx].arg), stdout=subprocess.PIPE)
+            temp = subprocess.Popen([program] + cmdlist[idx], stdout=subprocess.PIPE)
             temp.wait()
         loop = 1
     elif start == 'v':
@@ -37,11 +33,10 @@ while loop == 0:
         for time in testing:
             start = time.begin
             fin = time.end
-            arg = ["-i", filename, "-ss", start, "-to", fin, "-acodec copy", "-vcodec copy", outname]
-            temp = commands(program, arg)
-            cmdlist.append(temp)
+            arg = ["-i", filename, "-ss", start, "-strict", "-2", "-to", fin, outname]
+            cmdlist.append(arg)
         for idx, command in enumerate(cmdlist):
-            temp = subprocess.Popen([cmdlist[idx].name].extend(cmdlist[idx].arg), stdout=subprocess.PIPE)
+            temp = subprocess.Popen([program] + cmdlist[idx], stdout=subprocess.PIPE)
             temp.wait()
         loop = 1
     else:
